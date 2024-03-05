@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Pokemon Pixel Font';
+    src: url('assets/fonts/pokemon_pixel_font/pokemon_pixel_font.eot') format('eot'), url('assets/fonts/pokemon_pixel_font/pokemon_pixel_font.woff') format('woff'), url('assets/fonts/pokemon_pixel_font/pokemon_pixel_font.ttf') format('truetype'), url('assets/fonts/pokemon_pixel_font/pokemon_pixel_font.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pokemon Hollow';
+    src: url('assets/fonts/pokemon_hollow/PokemonHollow.ttf') format('truetype');
+}
+
 body {
     font-family: 'comic sans ms';
     background-color: #FFCC00;
@@ -17,7 +29,7 @@ header h1 {
     /* Set text border to blue with 2px width */
 }
 
-#searchInput {
+#searchPokemon {
     text-align: center; /* Center the text within the input */
     margin: 3% auto; /* Center the input horizontally */
     display: block; /* Ensure the input takes up the full width available */
@@ -46,4 +58,251 @@ header h1 {
     display: flex;
     justify-content: center; /* Horizontally center the content */
     align-items: center; /* Vertically center the content */
+    margin: 0;
+}
+
+span {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+}
+
+.card img {
+    display: block;
+    margin: auto;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hide the modal by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Pokemon Pixel Font';
+}
+
+.modal-content {
+    display: flex; /* Set the display to flex */
+    background-color: transparent;
+    margin: 15% auto;
+    padding: 0;
+    border-radius: 5px;
+    width: 80%;
+    font-family: 'Pokemon Pixel Font';
+}
+
+.modal-left, .modal-right {
+    flex: 1; /* Make both elements take up equal space */
+    width: 50%;
+    height: auto;
+    background-color: #dc0a2d;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.grey-border {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    height: 65%;
+    width: 85%;
+    margin: 4% auto;
+}
+
+.screen {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: lightskyblue;
+    height: 90%;
+    width: 90%;
+    margin: 4% auto;
+    padding: 0;
+}
+
+.screen-content {
+    height: 95%;
+    width: 95%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    text-align: left;
+    margin: 2%;
+    padding: 0;
+    border-radius: 5px;
+}
+
+#modalHeader {
+    margin: 0;
+    padding: 0;
+    grid-column: 1;
+}
+
+#modalTypes {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 2% 0;
+    float: right;
+    text-align: center;
+}
+
+#modalTypes br {
+    margin: 30%;
+}
+
+#modalImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* .circle-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.inner-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.circle {
+    background-color: #3498db;
+    /* blue color 
+
+
+.inner-circle {
+    background-color: #85c1e9;
+    /* lighter blue color 
+    top: 25px;
+    left: 25px;
+} */
+
+.modal-right span {
+    color: ghostwhite;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: crimson;
+    border: 1.5px solid black;
+    border-radius: 100px;
+    margin: 1%;
+    padding: 0 3px;
+}
+
+#green-button {
+    background-color: green;
+}
+
+#green-button:hover,
+#green-button:focus {
+    color: darkgreen;
+    background-color: lightgreen;
+    /* cursor: pointer; */
+}
+
+#yellow-button {
+    background-color: gold;
+}
+
+#yellow-button:hover,
+#yellow-button:focus {
+    color: darkgoldenrod;
+    background-color: lightgoldenrodyellow;
+    /* cursor: pointer; */
+}
+
+.close {
+    background-color: crimson;
+}
+
+.close:hover,
+.close:focus {
+    color: darkred;
+    background-color: lightcoral;
+    cursor: pointer;
+}
+
+#searchMovement {
+    text-align: center;
+    /* Center the text within the input */
+    margin: 15% auto 3% auto;
+    /* Center the input horizontally */
+    display: block;
+    /* Ensure the input takes up the full width available */
+    background-color: #f2ed31;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-family: 'Pokemon Pixel Font';
+    font-size: 25px;
+    width: 90%;
+}
+
+.moves-screen {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #00BD45;
+    width: 90%;
+    height: 55%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    overflow: auto;
+}
+
+#modalMoves {
+    margin: 0;
+    padding: 0;
+}
+
+#modalMoves span{
+    display: flex;
+    float: none;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: transparent;
+    border: 1.5px solid black;
+    border-radius: 0;
+    font-size: 25px;
+    font-weight: normal;
+    margin: 1%;
+    padding: 0 3px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 90%;
+    height: 15%;
+    margin: 4% auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(164, 164, 164);
+}
+
+.grid-item {
+    display: flex;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
 }

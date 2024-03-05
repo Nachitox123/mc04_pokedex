@@ -3,23 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-    <link href="https://fonts.cdnfonts.com/css/pokemon-hollow" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <link rel="icon" href="assets/pokeball.png" type="image/x-icon">
+    <title>PoKéDeX</title>
 </head>
 <body onload="obtenerPokemones(151)">
     <header>
         <h1>PoKéDeX</h1>
     </header>
     
-    <section id="search-pokemon-container">
-        <input type="text" id="searchInput" placeholder="Search for Pokémon" oninput="filterCards()">
-    </section>
+    <input type="text" id="searchPokemon" placeholder="Search for Pokémon" oninput="filterCards()">
     
     <section id="pokemon-container" class="d-flex flex-wrap">
         <!-- CARD WILL BE GENERATED HERE: <div class="card"> -->
     </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <section class="modal-content">
+            <section class="modal-left">
+                <section class="grey-border">
+                    <section class="screen">
+                        <section class="screen-content">
+                            <h2 id="modalHeader">
+                                <br>
+                            </h2>
+                            <h4 id="modalTypes">
+                            </h4>
+                            <img id="modalImage">
+                            <h4 id="modalDetails">
+                                <br>
+                            </h4>
+                        </section>
+                    </section>
+                </section>
+
+                <!-- <div class="circle-container">
+                    <div class="circle"></div>
+                    <div class="inner-circle"></div>
+                </div> -->
+            </section>
+            
+            <section class="modal-right">
+                <span class="close button">&CircleTimes;</span>
+                <span class="button" id="yellow-button">&CircleMinus;</span>
+                <span class="button" id="green-button">&CirclePlus;</span>
+
+                <input type="text" id="searchMovement" placeholder="Search for movement" oninput="filterMovements()">
+                
+                <section class="moves-screen">
+                    <p id="modalMoves"></p>
+                </section>
+
+                <div class="grid-container">
+                    <div class="grid-item">0</div>
+                    <div class="grid-item">1</div>
+                    <div class="grid-item">2</div>
+                    <div class="grid-item">3</div>
+                    <div class="grid-item">4</div>
+                    <div class="grid-item">5</div>
+                    <div class="grid-item">6</div>
+                    <div class="grid-item">7</div>
+                    <div class="grid-item">8</div>
+                    <div class="grid-item">9</div>
+                </div>
+            </section>
+        </section>
+    </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
