@@ -1,0 +1,49 @@
+body {
+    font-family: 'comic sans ms';
+    background-color: #FFCC00;
+    border-color: #0075BE;
+}
+
+header h1 {
+    padding: 0;
+    margin: 1% auto; /* top-bottom left-right*/
+    font-size: 50px;
+    font-family: 'Pokemon Hollow', sans-serif;
+    text-align: center;
+    color: #FFCC00;
+    -webkit-text-stroke: 1px #0075BE;
+    /* Set text border to blue with 2px width (for webkit browsers) */
+    text-stroke: 1px #0075BE;
+    /* Set text border to blue with 2px width */
+}
+
+#searchInput {
+    text-align: center; /* Center the text within the input */
+    margin: 3% auto; /* Center the input horizontally */
+    display: block; /* Ensure the input takes up the full width available */
+    background-color: #a3d0ff;
+    border: 5px solid #dc0a2d;
+    border-radius: 10px;
+    font-family: 'comic sans ms';
+    font-size: 20px;
+}
+
+#pokemon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: white;
+    border: 5px solid #0075BE;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.card p {
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+}
