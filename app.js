@@ -55,7 +55,6 @@ const obtenerPokemones = (limit) => {
   //Ver como poder implementar el PromiseAll()
 
   setTimeout(() => {
-    console.log(arrayPokemones);
     allPokemons = arrayPokemones;
     crearCards(allPokemons);
   }, 3000);
