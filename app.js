@@ -20,48 +20,122 @@ const colours = {
   fairy: '#D685AD',
 }
 
-let allPokemons = [];
+// Obtener los primeros {limit} pokémones.
+async function obtenerPokemones(limit) {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+    const data = await response.json();
+    const pokemonList = data.results;
 
-const obtenerPokemones = (limit) => {
-  const arrayPokemones = [];
-  const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
-  axios
-    .get(URL)
-    .then((response) => {
-      let infoPokemones = response.data.results;
-      infoPokemones.forEach((pokemon) => {
-        axios
-          .get(pokemon.url)
-          .then((infoPokemon) => {
-            let infoPokemonIndividual = {
-              numero: infoPokemon.data.id,
-              nombre: infoPokemon.data.name.charAt(0).toUpperCase() + infoPokemon.data.name.slice(1),
-              urlImagen: infoPokemon.data.sprites.front_default,
-              tipos: infoPokemon.data.types,
-              altura: infoPokemon.data.height / 10,
-              peso: infoPokemon.data.weight / 10,
-              movimientos: infoPokemon.data.moves.map((element) => {
-                return element.move.name
-              }),
-            };
+    const promises = pokemonList.map(async (pokemon) => {
+      const response = await fetch(pokemon.url);
+      const pokemonData = await response.json();
 
-            arrayPokemones.push(infoPokemonIndividual);
-          })
-          .catch((error) => error);
-      });
-    })
-    .catch((error) => console.log(error));
+      return {
+        numero: pokemonData.id,
+        nombre: pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1),
+        urlImagen: pokemonData.sprites.front_default,
+        tipos: pokemonData.types,
+        altura: pokemonData.height / 10,
+        peso: pokemonData.weight / 10,
+        movimientos: pokemonData.moves.map((element) => element.move.name),
+      };
+    });
 
-  //Ver como poder implementar el PromiseAll()
+    const todosPokemones = await Promise.all(promises);
+    crearCartas(todosPokemones);
+  } catch (error) {
+    console.error('Error al obtener los pokemones:\n', error);
+  }
+}
 
-  setTimeout(() => {
-    allPokemons = arrayPokemones;
-    crearCards(allPokemons);
-  }, 3000);
-};
+// async function obtenerPokemones(limit) {
+//   try {
+//     // Solicitud de los primeros {limit} pokemones.
+//     axios
+//       .get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
+//       .then((response) => {
+//         // Obtener la URL de cada pokémon.
+//         const pokemonUrls = response.data.results.url;
 
-let crearCards = (pokemones) => {
+//         pokemonUrls.forEach((url) => {
+//           axios
+//             .get(url)
+//             .then((response) => {
+//               // Obtener los datos de cada pokémon.
+//               const datosPokemon = response.data;
+
+//               // Crear un objeto con los datos de cada pokémon.
+//               let infoPokemon = {
+//                 numero: datosPokemon.id,
+//                 nombre: datosPokemon.name.charAt(0).toUpperCase() + datosPokemon.name.slice(1),
+//                 urlImagen: datosPokemon.sprites.front_default,
+//                 tipos: datosPokemon.types,
+//                 altura: datosPokemon.height / 10,
+//                 peso: datosPokemon.weight / 10,
+//                 movimientos: datosPokemon.moves.map((element) => {
+//                   return element.move.name
+//                 }),
+//               };
+
+//               todosPokemones.push(infoPokemon);
+//             })
+//             .catch((error) => error);
+//         });
+//       })
+//       .catch((error) => error);
+
+//     setTimeout(
+//       console.log('Todos los pokemones:', todosPokemones),
+//       crearCartas(todosPokemones)
+//     );
+//   } catch (error) {
+//     console.error('Error al obtener los pokemones:\n', error);
+//   }
+// }
+
+// const obtenerPokemones = (limit) => {
+//   const arrayPokemones = [];
+//   const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
+//   axios
+//     .get(URL)
+//     .then((response) => {
+//       let infoPokemones = response.data.results;
+//       infoPokemones.forEach((pokemon) => {
+//         axios
+//           .get(pokemon.url)
+//           .then((infoPokemon) => {
+//             let infoPokemonIndividual = {
+//               numero: infoPokemon.data.id,
+//               nombre: infoPokemon.data.name.charAt(0).toUpperCase() + infoPokemon.data.name.slice(1),
+//               urlImagen: infoPokemon.data.sprites.front_default,
+//               tipos: infoPokemon.data.types,
+//               altura: infoPokemon.data.height / 10,
+//               peso: infoPokemon.data.weight / 10,
+//               movimientos: infoPokemon.data.moves.map((element) => {
+//                 return element.move.name
+//               }),
+//             };
+
+//             arrayPokemones.push(infoPokemonIndividual);
+//           })
+//           .catch((error) => error);
+//       });
+//     })
+//     .catch((error) => console.log(error));
+
+//   //Ver como poder implementar el PromiseAll()
+
+//   setTimeout(() => {
+//     todosPokemons = arrayPokemones;
+//     crearCartas(todosPokemones);
+//   }, 3000);
+// };
+
+// Create pokémon cards.
+let crearCartas = (pokemones) => {
   let contenedorPokemones = document.getElementById("pokemon-container");
+
   pokemones.forEach((pokemon) => {
     // Create elements
     let card = document.createElement("div");
@@ -172,7 +246,6 @@ function openModal(pokemon) {
   modalDetails.firstChild.textContent = `Height: ${pokemon.altura} m`;
   modalDetails.lastChild.textContent = `Weight: ${pokemon.peso} kg`;
 
-  // modalMoves.textContent = pokemon.movimientos;
   pokemon.movimientos.forEach(movimiento => {
     const spanTag = document.createElement("span");
 
